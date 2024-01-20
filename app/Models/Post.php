@@ -19,6 +19,7 @@ class Post extends Model
             'alt_imagem_pequena',
             'conteudo',
             'data_publicacao',
-            'slug'
+            'slug',
+            'categoria_id'
         ];
 }

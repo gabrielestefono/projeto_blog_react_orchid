@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Post;
+use Database\Factories\RelationPostsCategoriasFactory;
 use Tests\TestCase;
 
 class PostTest extends TestCase
@@ -13,7 +14,7 @@ class PostTest extends TestCase
 
     public function test_post_show()
     {
-        $post = Post::factory()->create();
+        $post = RelationPostsCategoriasFactory::new()->create();
 
         $response = $this->getJson("/api/post/{$post->id}");
 
@@ -31,6 +32,7 @@ class PostTest extends TestCase
                     'conteudo' => $post->conteudo,
                     'data_publicacao' => $post->data_publicacao,
                     'slug' => $post->slug,
+                    'categoria_id' => $post->categoria_id,
                 ]
             ]);
 
@@ -38,7 +40,7 @@ class PostTest extends TestCase
 
     public function test_posts_index()
     {
-    Post::factory()->count(5)->create();
+    RelationPostsCategoriasFactory::new()->count(5)->create();
 
     $response = $this->getJson('/api/post');
 
@@ -50,7 +52,7 @@ class PostTest extends TestCase
                 '*' => [
                     'id', 'title', 'imagem_grande', 'alt_imagem_grande',
                     'imagem_media', 'alt_imagem_media', 'imagem_pequena',
-                    'alt_imagem_pequena', 'conteudo', 'data_publicacao', 'slug'
+                    'alt_imagem_pequena', 'conteudo', 'data_publicacao', 'slug', 'categoria_id'
                 ]
             ],
             'from',
