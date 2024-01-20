@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Categoria;
 use App\Models\Post;
+use App\Models\User;
 use Database\Factories\RelationPostsCategoriasFactory;
 use Tests\TestCase;
 
@@ -33,6 +35,7 @@ class PostTest extends TestCase
                     'data_publicacao' => $post->data_publicacao,
                     'slug' => $post->slug,
                     'categoria_id' => $post->categoria_id,
+                    'user_id' => $post->user_id,
                 ]
             ]);
 
@@ -60,5 +63,72 @@ class PostTest extends TestCase
             'to',
             'total',
         ]);
+    }
+
+    /**
+     * Teste requisição API de posts com relacionamento com usuário e categoria
+     */
+
+    public function test_get_index_post_com_user(){
+        $categoria = Categoria::factory()->create();
+        $user = User::factory()->create();
+        Post::factory()->create([
+            'user_id' => $user->id,
+            'categoria_id' => $categoria->id,
+        ]);
+
+        $response = $this->getJson('/api/post-com-categoria-e-user');
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'last_page',
+                'current_page',
+                'data' => [
+                    '*' => [
+                        'id',
+                        'title',
+                        'imagem_grande',
+                        'alt_imagem_grande',
+                        'imagem_media',
+                        'alt_imagem_media',
+                        'imagem_pequena',
+                        'alt_imagem_pequena',
+                        'conteudo',
+                        'data_publicacao',
+                        'slug',
+                        'created_at',
+                        'updated_at',
+                        'categoria_id',
+                        'user_id',
+                        'categoria' => [
+                            'id',
+                            'nome',
+                            'slug',
+                            'created_at',
+                            'updated_at',
+                            ],
+                        'user' => [
+                            'id',
+                            'name',
+                            'imagem_pequena',
+                            'alt_imagem_pequena',
+                            'imagem_grande',
+                            'alt_imagem_grande',
+                            'biografia',
+                            'facebook',
+                            'twitter',
+                            'instagram',
+                            'youtube',
+                            'profissao',
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                ],
+                'from',
+                'per_page',
+                'to',
+                'total',
+            ]);
     }
 }

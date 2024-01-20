@@ -29,6 +29,16 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'imagem_pequena' => 'https://via.placeholder.com/150',
+            'alt_imagem_pequena' => fake()->sentence(),
+            'imagem_grande' => 'https://via.placeholder.com/350',
+            'alt_imagem_grande' => fake()->sentence(),
+            'biografia' => fake()->paragraph(),
+            'facebook' => fake()->url(),
+            'instagram' => fake()->url(),
+            'twitter' => fake()->url(),
+            'youtube' => fake()->url(),
+            'profissao' => fake()->sentence(),
         ];
     }
 

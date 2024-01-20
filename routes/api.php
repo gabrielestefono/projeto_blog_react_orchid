@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\PostComCategoria;
+use App\Http\Controllers\PostComCategoriaEUser;
+use App\Http\Controllers\PostComUser;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/post', PostController::class)->only(['index', 'show']);
+Route::apiResource('/post-com-user', PostComUser::class)->only(['index', 'show']);
+Route::apiResource('/post-com-categoria', PostComCategoria::class)->only(['index', 'show']);
+Route::apiResource('/post-com-categoria-e-user', PostComCategoriaEUser::class)->only(['index', 'show']);
 Route::apiResource('/categoria', CategoriaController::class)->only(['index', 'show']);

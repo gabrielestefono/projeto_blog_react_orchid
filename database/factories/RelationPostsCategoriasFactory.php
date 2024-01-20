@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Categoria;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -37,6 +38,7 @@ class RelationPostsCategoriasFactory extends Factory
             'data_publicacao' => $this->faker->date,
             'slug' => Str::slug($this->faker->sentence),
             'categoria_id' => Categoria::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

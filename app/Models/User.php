@@ -21,6 +21,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'imagem_pequena',
+        'imagem_grande',
+        'alt_imagem_pequena',
+        'alt_imagem_grande',
+        'biografia',
+        'facebook',
+        'instagram',
+        'twitter',
+        'youtube',
+        'profissao',
     ];
 
     /**
@@ -31,6 +41,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email',
+        'email_verified_at',
     ];
 
     /**
@@ -42,4 +54,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
 }

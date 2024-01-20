@@ -20,6 +20,15 @@ class Post extends Model
             'conteudo',
             'data_publicacao',
             'slug',
-            'categoria_id'
+            'categoria_id',
+            'user_id',
         ];
+
+    public function categoria(){
+        return $this->belongsTo(Categoria::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
