@@ -35,6 +35,22 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table("posts", function (Blueprint $table) {
+            $table->dropForeign(["user_id"]);
+            $table->dropColumn("user_id");
+        });
+
+        Schema::table("users", function (Blueprint $table) {
+            $table->dropColumn("imagem_pequena");
+            $table->dropColumn("alt_imagem_pequena");
+            $table->dropColumn("imagem_grande");
+            $table->dropColumn("alt_imagem_grande");
+            $table->dropColumn("biografia");
+            $table->dropColumn("facebook");
+            $table->dropColumn("instagram");
+            $table->dropColumn("twitter");
+            $table->dropColumn("youtube");
+            $table->dropColumn("profissao");
+        });
     }
 };

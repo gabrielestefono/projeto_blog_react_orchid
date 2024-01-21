@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\NewsLetterController;
 use App\Http\Controllers\PostComCategoria;
 use App\Http\Controllers\PostComCategoriaEUser;
 use App\Http\Controllers\PostComUser;
@@ -28,3 +29,4 @@ Route::apiResource('/post-com-user', PostComUser::class)->only(['index', 'show']
 Route::apiResource('/post-com-categoria', PostComCategoria::class)->only(['index', 'show']);
 Route::apiResource('/post-com-categoria-e-user', PostComCategoriaEUser::class)->only(['index', 'show']);
 Route::apiResource('/categoria', CategoriaController::class)->only(['index', 'show']);
+Route::apiResource('/newsletter', NewsLetterController::class)->only(['store']);

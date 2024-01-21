@@ -20,7 +20,7 @@ class TruncateTabelas extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Trunca todas as tabelas exceto a tabela de migrations';
 
     /**
      * Execute the console command.
@@ -31,10 +31,13 @@ class TruncateTabelas extends Command
         $tables = Schema::getConnection()->getDoctrineSchemaManager()->listTableNames();
 
         foreach ($tables as $table) {
-            DB::table($table)->truncate();
+            // Verifica se a tabela não é a tabela de migrations
+            if ($table !== 'migrations') {
+                DB::table($table)->truncate();
+            }
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-        $this->info('All tables truncated');
+        $this->info('Todas as tabelas, exceto a de migrations, foram truncadas');
     }
 }
